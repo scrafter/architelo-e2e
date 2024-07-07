@@ -8,6 +8,9 @@ module.exports = defineConfig({
     baseUrl: 'http://localhost:4173',
     env: {
       backendUrl: 'http://localhost:3001'
+    },
+    options: {
+      browser: "chrome"
     }
   },
 });
