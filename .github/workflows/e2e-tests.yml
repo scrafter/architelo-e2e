@@ -42,6 +42,7 @@ jobs:
 
       - name: Wait for the frontend to be ready
         run: npx wait-on http://localhost:4173
+        working-directory: ./frontend
 
       - name: Run Cypress tests
         run: npm run cy:run
