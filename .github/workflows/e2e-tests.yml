@@ -22,7 +22,7 @@ jobs:
         with:
           repository: scrafter/architelo-panel
           path: frontend
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ARCHITELO_SECRET }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
