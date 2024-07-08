@@ -62,7 +62,7 @@ jobs:
           compose-file: "./backend/docker-compose.yml"
 
       - name: Start backend
-        run: npm run start &
+        run: npm run start:dev &
         working-directory: ./backend
 
       - name: Start frontend
