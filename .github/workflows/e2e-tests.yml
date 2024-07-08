@@ -38,11 +38,11 @@ jobs:
         working-directory: ./frontend
 
       - name: Start frontend
-        run: npm run build && npm run preview &
+        run: npm run dev &
         working-directory: ./frontend
 
       - name: Wait for the frontend to be ready
-        run: npx wait-on http://localhost:4137
+        run: npx wait-on http://localhost:3000
         working-directory: ./frontend
 
       - name: Run Cypress tests
