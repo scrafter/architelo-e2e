@@ -45,5 +45,5 @@ jobs:
         working-directory: ./frontend
 
       - name: Run Cypress tests
-        run: npm run dev && npm run cy:run
+        run: npm run cy:run
         working-directory: .
