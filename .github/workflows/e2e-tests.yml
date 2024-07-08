@@ -1,11 +1,25 @@
 name: E2E tests
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   e2e-tests:
     runs-on: ubuntu-24.04
+
+    services:
+      db:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pass123
+          POSTGRES_DB: architelo
+        ports:
+          - 5432:5432
+
     steps:
       - name: Checkout e2e-tests repository
         uses: actions/checkout@v4
@@ -16,6 +30,14 @@ jobs:
           repository: scrafter/architelo-panel
           ref: develop
           path: frontend
+          token: ${{ secrets.ARCHITELO_SECRET }}
+
+      - name: Checkout backend repository
+        uses: actions/checkout@v4
+        with:
+          repository: scrafter/architelo-api
+          ref: develop
+          path: backend
           token: ${{ secrets.ARCHITELO_SECRET }}
 
       - name: Set up Node.js
@@ -29,6 +51,19 @@ jobs:
       - name: Install dependencies for frontend
         run: npm install
         working-directory: ./frontend
+
+      - name: Install dependencies for backend
+        run: npm install
+        working-directory: ./backend
+
+      - name: run docker-compose
+        uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: "./backend/docker-compose.yml"
+
+      - name: Start backend
+        run: npm run start &
+        working-directory: ./backend
 
       - name: Start frontend
         run: npm run build && npm run preview &
