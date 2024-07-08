@@ -40,6 +40,10 @@ jobs:
           path: backend
           token: ${{ secrets.ARCHITELO_SECRET }}
 
+      - name: Create backend .env file
+        run: echo "${{ secrets.BACKEND_ENV_FILE }}" > .env
+        working-directory: ./backend
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -69,13 +73,13 @@ jobs:
         run: npm run build && npm run preview &
         working-directory: ./frontend
 
+      - name: Wait for the backend to be ready
+        run: npx wait-on http://localhost:3001/
+        working-directory: ./backend
+
       - name: Wait for the frontend to be ready
         run: npx wait-on http://localhost:4173/
         working-directory: ./frontend
-
-#      - name: Wait for the backend to be ready
-#        run: npx wait-on http://localhost:3001/
-#        working-directory: ./backend
 
       - name: Run Cypress tests
         run: npm run cy:run
