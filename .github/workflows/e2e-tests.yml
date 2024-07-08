@@ -40,6 +40,10 @@ jobs:
           path: backend
           token: ${{ secrets.ARCHITELO_SECRET }}
 
+      - name: Create frontend .env file
+        run: echo "${{ secrets.FRONTEND_ENV_FILE }}" > .env
+        working-directory: ./frontend
+
       - name: Create backend .env file
         run: echo "${{ secrets.BACKEND_ENV_FILE }}" > .env
         working-directory: ./backend
