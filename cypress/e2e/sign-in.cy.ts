@@ -4,7 +4,7 @@ describe('SignIn', () => {
        cy.get('h4').should('exist');
    });
 
-   it.only('backend health check', () => {
+   it('backend health check', () => {
        cy.request('GET', 'http://localhost:3001')
            .then((response: Response) => {
                expect(response.status).to.equal(200);
