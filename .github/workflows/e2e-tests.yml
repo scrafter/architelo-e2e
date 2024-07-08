@@ -10,15 +10,15 @@ jobs:
   e2e-tests:
     runs-on: ubuntu-24.04
 
-    services:
-      db:
-        image: postgres:13
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: pass123
-          POSTGRES_DB: architelo
-        ports:
-          - 5432:5432
+#    services:
+#      db:
+#        image: postgres:13
+#        env:
+#          POSTGRES_USER: postgres
+#          POSTGRES_PASSWORD: pass123
+#          POSTGRES_DB: architelo
+#        ports:
+#          - 5432:5432
 
     steps:
       - name: Checkout e2e-tests repository
@@ -56,7 +56,7 @@ jobs:
         run: npm install
         working-directory: ./backend
 
-      - name: run docker-compose
+      - name: Run docker-compose
         uses: hoverkraft-tech/compose-action@v2.0.1
         with:
           compose-file: "./backend/docker-compose.yml"
