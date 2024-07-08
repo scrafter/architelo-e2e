@@ -38,7 +38,7 @@ jobs:
         working-directory: ./frontend
 
       - name: Start frontend
-        run: npm run build & npm run preview &
+        run: npm run build && npm run preview &
         working-directory: ./frontend
 
       - name: Wait for the frontend to be ready
