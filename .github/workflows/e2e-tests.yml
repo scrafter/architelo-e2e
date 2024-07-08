@@ -15,12 +15,13 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout e2e-tests repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Checkout frontend repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: scrafter/architelo-panel
+          ref: develop
           path: frontend
           token: ${{ secrets.ARCHITELO_SECRET }}
 
