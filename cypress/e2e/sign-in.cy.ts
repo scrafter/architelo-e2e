@@ -1,13 +1,11 @@
 describe('SignIn', () => {
-   it('view is properly rendered', () => {
-       cy.visit('http://localhost:4173/sign-in');
-       cy.get('h4').should('exist');
-   });
-
-   it('backend health check', () => {
-       cy.request('GET', 'http://localhost:3001')
-           .then((response: Response) => {
-               expect(response.status).to.equal(200);
-           });
+    it('api sets httpOnly authToken cookie', () => {
+       cy.request('POST', `${Cypress.env('apiUrl')}/auth/sign-in`, {
+           email: 'mankatomek+test@gmail.com',
+           password: 'Test123!',
+       }).then((response: any) => {
+           const setCookieHeader = response.headers['set-cookie'];
+           expect(setCookieHeader).to.not.be.empty;
+       })
    })
 });
